@@ -1,0 +1,793 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  man,floatsintext]{apa7}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Public opinion on selective reporting, publication bias, and lack of data sharing in psychological science},
+  pdfauthor={Anna E. van 't Veer1, Maaike L. Verburg2, \& Daniel Lakens3},
+  pdflang={en-EN},
+  pdfkeywords={Public opinion, selective reporting, publication bias, data sharing, {[}add any other keywords{]}},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{english}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+% Manuscript styling
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+% Table formatting
+\usepackage{longtable}
+\usepackage{lscape}
+% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
+\usepackage{multirow}		% Table styling
+\usepackage{tabularx}		% Control Column width
+\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
+\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+
+% Create new environments so endfloat can handle them
+% \newenvironment{ltable}
+%   {\begin{landscape}\centering\begin{threeparttable}}
+%   {\end{threeparttable}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\centering\begin{ThreePartTable}}{\end{ThreePartTable}\end{landscape}}
+
+% Enables adjusting longtable caption width to table width
+% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+% \setlength{\parindent}{0.5in}
+% \setlength{\parskip}{0pt plus 0pt minus 0pt}
+
+% Overwrite redefinition of paragraph and subparagraph by the default LaTeX template
+% See https://github.com/crsh/papaja/issues/292
+\makeatletter
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries\itshape\typesectitle}}
+
+\renewcommand{\subparagraph}[1]{\@startsection{subparagraph}{5}{1em}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-\z@\relax}%
+  {\normalfont\normalsize\itshape\hspace{\parindent}{#1}\textit{\addperi}}{\relax}}
+\makeatother
+
+% \usepackage{etoolbox}
+\makeatletter
+\patchcmd{\HyOrg@maketitle}
+  {\section{\normalfont\normalsize\abstractname}}
+  {\section*{\normalfont\normalsize\abstractname}}
+  {}{\typeout{Failed to patch abstract.}}
+\patchcmd{\HyOrg@maketitle}
+  {\section{\protect\normalfont{\@title}}}
+  {\section*{\protect\normalfont{\@title}}}
+  {}{\typeout{Failed to patch title.}}
+\makeatother
+
+\usepackage{xpatch}
+\makeatletter
+\xapptocmd\appendix
+  {\xapptocmd\section
+    {\addcontentsline{toc}{section}{\appendixname\ifoneappendix\else~\theappendix\fi\\: #1}}
+    {}{\InnerPatchFailed}%
+  }
+{}{\PatchFailed}
+\keywords{Public opinion, selective reporting, publication bias, data sharing, [add any other keywords]\newline\indent Word count: 311}
+\usepackage{csquotes}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Public opinion on selective reporting, publication bias, and lack of data sharing in psychological science}
+\author{Anna E. van 't Veer\textsuperscript{1}, Maaike L. Verburg\textsuperscript{2}, \& Daniel Lakens\textsuperscript{3}}
+\date{}
+
+
+\shorttitle{PUBLIC OPINION SCIENTIFIC SELECTIVITY}
+
+\authornote{
+
+Contributor roles: Conceptualization: . Data curation: . Formal Analysis: . Funding acquisition: . Investigation: . Methodology: . Project administration: . Resources: . Software: . Supervision: . Validation: . Visualization: . Writing -- original draft: . Writing -- review \& editing: .
+Enter author note here.
+
+Correspondence concerning this article should be addressed to Anna E. van 't Veer, Faculty of Social Sciences. E-mail: \href{mailto:a.e.van.t.veer@fsw.leidenuniv.nl}{\nolinkurl{a.e.van.t.veer@fsw.leidenuniv.nl}}
+
+}
+
+\affiliation{\vspace{0.5cm}\textsuperscript{1} Methodology and Statistics Unit, Psychology institute, Leiden University, ORCID: \url{https://orcid.org/0000-0002-2733-1841}\\\textsuperscript{2} ORCID: \url{https://orcid.org/0000-0001-9408-3190}\\\textsuperscript{3} Dept. Industrial Engineering \& Innovation Sciences, Eindhoven University of Technology, ORCID: \url{https://orcid.org/0000-0002-0247-239X}}
+
+\abstract{%
+In psychological science, as in other fields, several research practices underlie issues with
+the reliability and integrity of the knowledge produced. In the proposed study we will build
+on a survey study by Picket and Roche (2017) who examined moral judgments about data
+fraud and selective reporting, and found that people in the USA believe both practices to
+be immoral and deserving of punishment. We will assess public opinion in four large
+samples that are quota-equivalent to the OCED statistics in the variables age, sex, and
+where possible education level, in four European countries that differ in their general trust
+in science (Spain, The Netherlands, Italy, and Poland) and will ask participants about three
+research practices in psychological science, namely selective reporting, publication bias,
+and lack of data sharing. Participants will indicate their opinion both before and after the
+incentive structure in science that leads researchers to perform these practices is carefully
+explained. The main outcome measures include moral acceptability of these three
+practices, trust in knowledge produced by Psychological Science (both measured before
+and after the incentive structure explanation), and agreement with tax money going to
+Psychological Science should be lowered if no responsibility is taken to resolve these
+practices. Our hypothesis is that the general public will judge the three practices to be
+morally unacceptable, and we expect to see little change in these judgments after
+informing the public about current reward structures in science. Our goal is to provide input
+for future discussions about policies regarding reporting practices (e.g., pre-registering
+hypothesis tests to prevent p-hacking), publication practices (e.g., study registries in
+psychology to reduce the file-drawer), and data sharing (e.g., sharing data in a data
+repository alongside a publication). If the public believes current research practices to be
+morally unacceptable, the scientific community should work together to improve these
+practices to deserve the trust of the general public.
+}
+
+
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+The integrity of a scientific field depends on the research practices that underlie how
+knowledge is produced. In the past decade, practices that were previously common have
+been scrutinized and called into question (Banks et al., 2016; Fiedler \& Schwarz, 2016;
+John et al., 2012). In Psychology, three practices especially seem to be stirring up the
+debate surrounding the reliability of research findings, namely publication bias, selective
+reporting, and lack of data sharing. As meta-scientists have started to examine the
+consequences of these problematic practices, one concern that has been raised is the
+impact that low replicability of research findings has on the public's trust in science (Anvari
+\& Lakens, 2018; Mede et al., 2021; Wingen et al., 2020). Pickett and Roche (2017) found
+in a US sample that the general public judged a practice as selective reporting to be
+morally unacceptable, and deserving of punishment. And yet, prevalence estimates of
+publication bias, selective reporting, and lack of data sharing reveal these practices to be
+common in psychological science. Given that a large part of scientific research is publicly
+funded, the opinion of the public about these practices should be taken into account in
+discussions about future implementations of tools to mitigate these problematic practices,
+such as pre-registration, study registries, and data repositories. In the proposed study, we
+assess public opinion about the moral acceptability of three research practices psychology
+such that their views can be heard and considered in policy decisions.
+In the current reform that the field of psychology is facing, the integrity of the scientific
+literature plays a central role. Integrity refers to honesty, completeness, and soundness; in
+science, this is reflected in honest, full reporting and verifiable steps in the process with
+which research is conducted. Many practices and biases create a lack of completeness as
+they prevent consumers of the work to see the whole picture (Vazire, 2017). For instance,
+there are strong signs that publication bias is widely prevalent in the field of psychology
+with over 90\% of published results being in the `desirable' direction (Fanelli, 2010; Scheel
+et al., 2021). Researchers' self-admission rates reveal that practices such as failing to
+report all outcome measures, selectively leaving out parts of the data, or simply not
+publishing when predictions are not confirmed, are common (Fiedler \& Schwarz, 2016;
+Fraser et al., 2018; John et al., 2012; Makel et al., 2021). Documented changes between
+early reports of the research (e.g., a dissertation chapter) and the published version
+uncover that selective reporting occurs in over half of all cases (Cairo et al., 2020; Franco
+et al., 2014). The pervasiveness of these research practices stands in stark contrast with
+principles formulated in codes of conduct, such as ``Honesty in developing, undertaking,
+reviewing, reporting and communicating research in a transparent, fair, full and unbiased
+way'' (ALLEA, 2017, p.~4).
+Selectivity in reporting is likely driven by the current scientific incentive structure which
+prioritizes novel findings that confirm predictions, while the importance of sharing null
+results is undervalued. This leads to a strong motivation to spend one's time writing up
+statistically significant results, irrespective of how important the research was judged to be
+before looking at the outcomes (Greenwald, 1975). In addition, several studies have
+shown that in psychology the majority of requested datasets cannot be obtained from the
+original authors (Tedersoo et al., 2021; Vanpaemel et al., 2015). This is true even though
+many journals in psychology require authors to share the data upon request, in line with
+
+A majority of participants in a survey by Picket and Roche (2017) judged selective
+reporting to be morally unacceptable and believed that scientists who selectively report
+should be fired and banned from receiving government funding. This suggests that public
+opinion about these practices differs substantially from norms within the scientific
+community, and raises the possibility that the scientific community would take problematic
+research practices more seriously if public opinion was taken to heart.
+However, researchers might be tempted to dismiss the opinion of the general public, as
+they are relatively uninformed about the pressures that exist to publish positive results and
+the effort involved in making data interpretable for other scientists. In our study, we
+therefore examine moral acceptability judgments concerning selective reporting,
+publication bias, and lack of data sharing, both before and after carefully informing
+participants about possible underlying reasons for these behaviors, given the current
+incentive system in psychological science. We also assess the trust participants have in
+knowledge stemming from research within psychology both before and after this
+explanation of the incentive system.
+Furthermore, we ask participants to guess the prevalence of the three practices, and then
+ask their opinion about meta-scientific estimates of the prevalence of these practices.
+Together, the obtained public opinion about these research practices can inform future
+policy decisions about ways to reduce this prevalence in the future, for example by
+requiring preregistration of hypothesis tests to prevent selective reporting, registering
+studies in a public study registry to prevent publication bias, and uploading data to a data
+repository to prevent a lack of data sharing. In doing so, we aim to incorporate public
+opinion in critical debates about research practices within psychology and create
+awareness among scientists about how the general public perceives their practices.
+
+In addition to the hypotheses below, the main aim of the proposed study is to collect
+accurate descriptive statistics for the mean moral acceptability ratings from the general
+public across four European countries concerning three research practices: selective
+reporting, publication bias, and not sharing data. In addition, we ask participants whether
+they believe tax money should be lowered if no responsibility is taken to resolve the
+current practices by all stakeholders.
+For selective reporting, publication bias, and not sharing data, we will assess the mean
+moral acceptability, both before and after explaining the incentive structure in science that
+leads to these practices. We will perform paired t-tests to examine whether participants
+judge the three practices more acceptable after reading about the reward structure
+compared to before. Based on previous work by Picket \& Roche (2017), which shows that
+the general public finds it morally unacceptable that researchers selectively report,
+researchers might dismiss the opinion of the public because people are uninformed about
+the incentive structures in science, and argue something like: ``If the general public knew
+how science operates, they would not find it as morally unacceptable that I do not share
+data and selectively report or do not publish null results.'' We aim to directly test this
+assumption. Our main interest is examining whether explaining the reward structure
+makes people see this practice as more acceptable. We will perform three paired two-sided tests, as it might be that learning about the reward structure makes the public think it
+is even less morally acceptable. We would like to make a claim that explanations of the
+reward structure make any of the three practices (selective reporting, publication bias, and
+not sharing data) more or less acceptable, so we correct our alpha level for 3 tests. We
+expect that explanations of the incentive structure in science will somewhat increase moral
+acceptability, but that participants on average continue to believe the three practices are
+morally unacceptable (as indicated by averages lower than 50 on a 100 point scale after
+learning about the incentive structure).
+We aim to assess how learning about prevalence estimates based on meta-scientific
+research impacts how much trust the general public has in knowledge generated by
+psychological science by testing the difference in trust measured at the beginning and at
+the end of our survey. We will test if their trust has been impacted by the information in the
+survey by performing a paired t-test. We expect to observe a substantial drop in trust,
+which provides an indication of a possible shift in opinion if current meta-scientific
+prevalence estimates of these three scientific practices would become more widely known.
+
+In addition, for the three practices (selective reporting, publication bias, and not sharing data), we will
+assess the participants' guesses of the prevalence of each practice. We can compare this
+guess of the public to current meta-scientific estimates of the prevalence of these practices
+in psychology, to answer the question how closely aligned the prevalence estimates of the
+general public are with meta-scientific estimates of the prevalence of these practices.
+Based on our pilot data, we expect people to underestimate these practices (especially for
+publication bias). After providing meta scientific estimates about the prevalence, we once
+again ask participants how morally acceptable they believe this practice is, given the
+prevalence. The response of people likely depends on how prevalent they judged the
+practice to be, with the more the observed prevalence exceeds their own estimate, the
+more immoral they believe the practice to be. Since we do not know how often people
+think these practices happen (and thus, if they will believe they occur much less, or much
+more, than their beliefs), these analyses are purely exploratory.
+Furthermore, the drop in trust before and after the prevalence estimates are communicated will depend
+on the average trust in science. As we have collected data from 4 countries that differ in
+trust in science, we will explore differences in the reduction of trust in knowledge
+generated by psychological science across the four countries.
+Finally, to map possible correlates of public opinion, we will explore individual differences that
+may be associated with all the primary outcome measures (i.e., public opinion) in a
+correlation table (e.g., correlations with familiarity with information from psychological
+science, level of surprise at the current incentive structure in science, level of
+understanding for a practice after reading the incentive structure explanation, agreement
+with the statement that tax money should be lowered). We will also explore (with ANOVAs
+and t-tests, without controlling error rates) differences on trust (both at the beginning and
+end of survey), familiarity with psychological science, surprise at the current incentive
+structure, and agreement with the statement that tax money should be lowered as a
+function of country and education level.
+
+\hypertarget{methods}{%
+\section{Methods}\label{methods}}
+
+\hypertarget{participants}{%
+\subsection{Participants}\label{participants}}
+
+Our sample consisted of a total of 5 participants. In this sample, 1 participants were Dutch, 1 were Spanish, 2 were Polish and 1 were Italian. The data from the sample is quota-equivalent to the OCED statistics in the variables age, sex, and education level in two of the four European countries. Our sample sized was based on pre-planned accuracy estimates and our desired power. Based on our pilot data collected from Dutch participants through Prolific, and the largest
+standard deviation observed for our dependent variables (\(SD\) = 19.65 for the publication bias question), a sample of 250 per country will yield acceptability ratings with a
+margin of error of 2.43 on a 100 point scale, computed as \[1.96 * \frac{19.65}{\sqrt250}\] , with
+an accuracy of 1.22 for \(N\) = 1000 when averaging across countries, computed as \[1.96 *
+\frac{19.65}{\sqrt1000}\]. This means that in 95\% of samples drawn using this procedure, the
+population estimate will fall within a range of either 2.5 scale points higher or lower than
+the true population estimate. We assume policy decisions would not meaningfully change
+if the estimates we report are 2.5 points higher or lower on a 100 point scale (or 1.25 point
+for the combined sample). Therefore, we believe the descriptives are accurate enough to
+inform policy decisions. If we conservatively allow for 5\% missing data, the margin of
+errors are still sufficient at 2.50 (for 238 observations per country) and 1.25 (for 950
+observations in total).
+
+For our planned hypothesis tests H1 and H2 we have to specify a smallest effect size of
+interest. How much more acceptable can the public judge selective reporting, publication
+bias, and not sharing data, for researchers to argue that knowledge about the incentive
+structure does \emph{not} change moral acceptability judgments? And how much can trust
+decrease after learning about prevalence estimates from meta-scientific work, without
+considering this a meaningful change? We subjectively believe that a difference of 5 scale
+points on a 100 point scale is a difference that is too small to matter in practice. Such a
+change corresponds to a quarter of a standard deviation on the moral acceptability ratings
+for publication bias, according to our pilot data. It seems difficult for researchers to argue
+that the general public would not think selective reporting, publication bias, and not sharing
+data are morally unacceptable if only they understood the incentive structures in science, if
+the difference in their judgments is less than 5 scale points.
+Given the effort required to collect data from a sample that is quota-equivalent to the
+OCED statistics in the variables age, sex, and education level in two of the four European
+countries, we do not predict it will be easy for other researchers to replicate our study. If
+our findings are used to inform policy, we want to reduce the probability of erronous claims
+beyond the default alpha level of 0.05. We therefore lower our alpha level to 0.0025, or
+0.05 * 0.05, to yield the equivalent Type 1 error rate that would be achieved if two studies
+(e.g., one original and one direct replication) with a default alpha of 0.05 had been
+performed. As we will perform three paired t-tests (one for selective reporting, publication
+bias, and not sharing data), we will effectively use an alpha level of 0.0025/3 for these
+tests (but an alpha level of 0.0025 for H2). With a final sample size of 950 (allowing for 5\%
+missing values), we would have high (i.e., .99999) statistical power to conclude
+the absence of a meaningful effect (set as a SESOI for a two-sided test of 5 on a 100 point
+scale), given the largest observed standard deviation from our pilot data (for publication
+bias, the standard deviation of the difference score was 20.42), assuming there was no
+difference between pre- and post measures. For a sensitivity power analysis with 950 pairs of observations, we would also have high (i.e., .99999) power to detect a difference larger than 5 scale points (which
+given the standard deviation of the difference score would equal a Cohen's \(d_z\) = .245).
+After data collection, we applied our two exclusion criteria, namely that we would exclude researchers in the field of psychology, and participants who indicated that they wanted to withdraw from the study at the end of the survey.
+Of the 5 participants, 4 ended up meeting these criteria. This sample consisted of 1 dutch participants, of which 0\% were female, and 100\% were males. Among the 1 Spanish participants, 100\% were female, and 100\% were males. The sample of Polish participants consisted of 1 people, of which 0\% were female, and 100\% were males. Among the 1 participants from Italy, 0\% were female, and 0\% were males. The distribution of age for all four countries are displayed in Figure \ref{fig:barplot_age}.
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{PO_Markdown_final_files/figure-latex/unnamed-chunk-2-1} \caption{Barplot of the distribution of age per country.\label{fig:barplot_age}}\label{fig:unnamed-chunk-2}
+\end{figure}
+
+\hypertarget{material}{%
+\subsection{Material}\label{material}}
+
+The study consisted of a survey with a single condition.The survey included,
+among other measures, a moral acceptability rating that was assessed both
+before and after information about the motivations of the different stakeholders (government,
+journals, universities, and researchers) within the incentive structure
+in science was given. A .qsf and corresponding Word file with the entire
+survey as programmed in Qualtrics can be found on the osf project page
+(\url{https://osf.io/7g96f/} under \emph{study materials/Qualtrics}). The answers
+were given on slider scales from 0 to 100 (numbers not visible to
+participants) with labels at the extremes and in the middle, unless
+otherwise specified below. Additionally, further information on the names and descriptions of the variables of this study can be found in a codebook on the osf project page.
+
+\hypertarget{procedure}{%
+\subsection{Procedure}\label{procedure}}
+
+After giving informed consent and reading a short introduction to the
+study, participants were asked how much they agree with the statement `I
+trust knowledge stemming from scientific research within Psychology'
+(totally disagree - neither disagree nor agree - totally agree). The next survey item then
+assessed participants' familiarity with knowledge stemming from Psychology:
+`how familiar are you with knowledge stemming from Psychological
+Science?' (not familiar at all - somewhat familiar - entirely familiar),
+followed by a multiple choice question about how this familiarity came
+about (read about it in the news / learned about it at school or university /
+know someone who works in the field / learned about it at work / work as a researcher in psychology / other, please specify / not familiar). Participants then read an explanation of
+one of the three practices, and answered two comprehension questions, on which they received direct feedback to increase comprehensibility. After that, they provided their opinion on '*how morally acceptable do you think it is
+when scientists perform this practice?' (totally unacceptable - neutral -totally acceptable). They were then asked `which percentage of scientists they think have performed this practice at least once in their career?' (0 - 100, each decimal indicated on the slider). After this estimation, meta scientific estimates of the prevalence of selective
+reporting were provided, and participants were asked `how morally acceptable do you think it is when \ldots\% of scientists perform the practice at least once in their career?'. This sequence (explanation, comprehension
+question(s), acceptability rating, prevalence estimate, and acceptability of meta scientific prevalence estimate) was then repeated for the remaining two practices.
+
+What followed was a 400-word explanation of the motivations of the different stakeholders (government, journals,
+universities and scientists) within the current scientific incentive
+structure. For example, it was explained that in return for finance, the
+government expects excellence and innovation, and that journals
+strive for many subscribers and a large readership which can be
+accomplished by publishing innovative and striking findings that confirm
+the desired results. For universities, the text explained that reputation
+is built by the success of their scientific staff in obtaining
+competitive grants from the government or publishing papers. Lastly, for
+scientists, it was explained that a successful career is best maintained
+by doing innovative and striking research that confirms the desired
+results, as this will lead to a higher chance of obtaining grants and/or
+publishing papers; due to limited time and resources, this will leave
+less time to document data for sharing or report studies that do not
+show the desired results. Participants were not able to go to the next page for 100 seconds, to ensure that participants took the time to read and understand the explanation of the incentive structure withing science.
+
+After reading this explanation text, participants were asked `how surprised are you about
+the current incentive structure within science, as explained above?'
+(not at all surprised - neutral - entirely surprised). Next, participants were
+asked `given the knowledge you now have about the incentive structure
+in science, how much understanding do you have for scientists who
+perform (one of the three) practice?' (entirely no understanding - neutral - a lot of
+understanding). Accompanying this question was a reminder on the definition of the practice at the top of the page. This question was added after piloting revealed that explaining motivations will likely have participants sympathize. This would then perhaps translate into their moral acceptability rating, even though one can have a lot of understanding for something and still think it is not morally acceptable. We therefore included this question about
+understanding, which was then directly followed by `Given the knowledge
+you now have about the incentive structure in science, how morally
+acceptable do you think it is when scientists perform this practice?'
+(totally unacceptable - neutral - totally acceptable). This sequence (reminder, understanding rating and moral acceptability rating) was then repeated for the remaining two practices.
+
+After these sequences, participants were asked five last questions. First,
+participants were again asked how much they agree with the statement `I trust
+knowledge stemming from scientific research within Psychology' (totally disagree
+- neither disagree nor agree - totally agree). Second, participants were asked to
+indicate how much they agree with the statement \emph{`If the different parties do not
+take responsibility to resolve the three research practices (selective
+reporting, publication bias, lack of data sharing), the tax money that
+currently goes to scientific research within psychology should be
+lowered'} (totally disagree - neither disagree nor agree - totally
+agree). Third, participants were asked for their highest obtained
+level of education (high school / post-secondary vocational education /
+higher professional education / university / other, namely: \ldots). Fourth, participants were asked about their age (younger than 30 years / between 30 and 39 / between 40 and 49 / between 50 and 59 / between 60 and 69 / 70 years or older). Lastly, participants were asked about their gender (female / male / other / I would rather not say). At the end of the survey, there was space for participants to leave questions and/or comments.
+Participants were also informed that all stakeholders and other involved parties are constantly
+reflecting on what can be done better in science, that this survey
+itself was part of a project that received finance to make psychological
+science more efficient and reliable, and that the participant's given
+opinion would contribute to this end. We judged it was important to add this information, as to not leave participants with an inaccurately negative perception of the state of affairs in psychological science. Additionally, participants could leave their email addresses, to receive information about the results of the study. Finally, participants were given the opportunity to withdraw their answers from the study by typing ``withdraw'' in the box below.
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+Results of the planned analyses.
+
+\hypertarget{research-question-1}{%
+\subsection{Research Question 1}\label{research-question-1}}
+
+For ``selective reporting'', ``publication bias'', and ``not sharing data'',
+we assessed the mean moral acceptability, both before and after
+explaining the incentive structure in science that leads to these
+practices. We performed three paired \emph{t}-tests to determine whether
+participants deemed the three practices more acceptable after reading
+about the incentive structure. Based on previous work by (Pickett \& Roche, 2018) and a pilot study we conducted in 2020, which
+show that the general public finds it morally
+unacceptable that researchers selectively report, researchers might
+think: ``If the general public knew how science operates and what incentive
+structures are in place, they would not
+find it as morally unacceptable that I do not share data and selectively
+report or do not publish null results.'' Therefore, one
+of our main interests was knowing whether explaining the incentive structure
+makes people see a practice as more acceptable. We tested a
+two-sided test, as it might be that learning about the incentive structure
+makes the public think it is even less morally acceptable. As we hoped to be able
+to make a claim that explanations of the incentive structure makes a
+practice more acceptable for any or all of the three practices, we
+corrected our alpha level for 3 tests. We will effectively use an alpha level of 0.0025/3 for these
+tests.
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{PO_Markdown_final_files/figure-latex/unnamed-chunk-3-1} \caption{Moral acceptability before and after reading about incentive structure. \label{fig:accept}}\label{fig:unnamed-chunk-3}
+\end{figure}
+
+Figure \ref{fig:accept} shows the acceptability ratings for all three practices. Acceptability of selective reporting was not rated higher after reading about the incentive structure in science compared to before, \(M_{pre}\) = 29, \(M_{post}\) = 49.50,
+\(M_D = -20.50\), 95\% CI \([-42.14, 1.14]\), \(t(3) = -3.01\), \(p = .057\). Based on an equivalence test, we did not reject the presence of effects more extreme than -0.5 to 0.5, so we can act (with an error rate of .0025) as if the effect, if any, is less extreme than our equivalence range. Furthermore, acceptability of publication bias was also not rated higher after reading about the incentive structure in science compared to before, \(M_{pre}\) = 51.50, \(M_{post}\) = 43.75, \(M_D = 7.75\), 95\% CI \([-76.98, 92.48]\), \(t(3) = 0.29\), \(p = .790\). Again, we did not reject the presence of effects more extreme than -0.5 to 0.5. Lastly, acceptability of scientists not sharing their data was also not rated higher after reading about the incentive structure in science compared to before, \(M_{pre}\) = 45.50, \(M_{post}\) = 59, \(M_D = -13.50\), 95\% CI \([-56.52, 29.52]\), \(t(3) = -1.00\), \(p = .392\). Once more, based on an equivalence test, we did not reject the presence of effects more extreme than -0.5 to 0.5. \textcolor{red}{De resultaten aanpassen a.d.h.v. de nieuwe data.}
+
+Table \ref{tab:table of descriptives} shows the mean, standard deviation and range of the acceptability ratings for all three practices. These descriptives can be used to inform policy makers about the public opinion on, and the severity of, the three practices and could therefore be relevant for policy decisions about whether action should be taken to prevent the occurrence of these issues.
+
+\begin{table}[h]
+
+\begin{center}
+\begin{threeparttable}
+
+\caption{\label{tab:table of descriptives}Descriptives of moral acceptability for the three practices}
+
+\begin{tabular}{lllll}
+\toprule
+ & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{Lower} & \multicolumn{1}{c}{Upper}\\
+\midrule
+Acceptability SR (pre) & 29.00 & 24.67 & 10.00 & 65.00\\
+Acceptability SR (post) & 49.50 & 15.46 & 36.00 & 67.00\\
+Acceptability PB (pre) & 51.50 & 31.63 & 12.00 & 79.00\\
+Acceptability PB (post) & 43.75 & 37.35 & 2.00 & 88.00\\
+Acceptability NSD (pre) & 45.50 & 28.21 & 14.00 & 80.00\\
+Acceptability NSD (post) & 59.00 & 17.26 & 34.00 & 73.00\\
+\bottomrule
+\addlinespace
+\end{tabular}
+
+\begin{tablenotes}[para]
+\normalsize{\textit{Note.} SR = selective reporting, PB = publication bias and NSD = not sharing data. Descriptives are                           assessed both before (pre) and after (post) the survey.}
+\end{tablenotes}
+
+\end{threeparttable}
+\end{center}
+
+\end{table}
+
+\hypertarget{research-question-2}{%
+\subsection{Research Question 2}\label{research-question-2}}
+
+This research question focused on several general (i.e., not specific to the three
+separate research reporting practices) measures to assess the public opinion of psychological
+science.
+We assessed how much trust the public has in knowledge forwarded by
+psychological science and how much this trust has been impacted by the information in the
+survey by comparing the trust measured at the beginning and the end of the survey.
+Figure \ref{fig:trust} shows that participants' trust in knowledge
+coming from psychological science had declined at the end of the survey
+(\(M_D = 4.75\), 95\% CI \([-14.18, 23.68]\), \(t(3) = 0.80\), \(p = .483\), \emph{d} = 0.40). \textcolor{red}{De resultaten aanpassen a.d.h.v. de nieuwe data.}
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{PO_Markdown_final_files/figure-latex/unnamed-chunk-5-1} \caption{Trust in knowledge coming from psychological science at the beginning and at the end of the survey.\label{fig:trust}}\label{fig:unnamed-chunk-5}
+\end{figure}
+
+\hypertarget{research-question-3}{%
+\subsection{Research Question 3}\label{research-question-3}}
+
+For the three practices (selective reporting, publication bias, and
+not sharing data), we assessed the participants' guess of
+prevalence of the practice. We compared this guess of the public across the four countries
+to current meta scientific estimates of the prevalence of these
+practices in psychology, to answer the question: How closely aligned are
+the prevalence estimates of the general public with meta scientific
+estimates of the prevalence of these practices? After providing meta
+scientific estimates about the prevalence, we asked participants'
+moral acceptability rating of this given prevalence. How morally
+acceptable do participants think a practice is after they hear how often
+it occurs? It makes sense to assume that they would respond differently
+depending on what they believe is the frequency of each practice. Since
+we had no previous knowledge on how often people think these practices
+happen (and thus, if they will believe they occur much less, or much
+more, than their beliefs), these analyses were purely exploratory. We
+computed a difference score between the meta scientific prevalence and
+participants' guess of prevalence to assess whether participants over-
+or underestimated the prevalence. We used this difference score to
+predict moral acceptability after post survey.
+
+Figure \ref{fig:prevalence} depicts participants' acceptability ratings
+as a function of their prevalence guess of the three practices. The
+pattern seems to be that when participants underestimate the prevalence
+of a given practice, their moral acceptability of that practice is lower
+compared to when they overestimate the prevalence. \textcolor{red}{De resultaten aanpassen a.d.h.v. de nieuwe data.}
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{PO_Markdown_final_files/figure-latex/unnamed-chunk-6-1} \caption{Acceptability rating by prevalence guess.\label{fig:prevalence}}\label{fig:unnamed-chunk-6}
+\end{figure}
+
+\hypertarget{research-question-4}{%
+\subsection{Research Question 4}\label{research-question-4}}
+
+\hypertarget{research-question-5}{%
+\subsection{Research Question 5}\label{research-question-5}}
+
+To map possible correlates of public opinion, we explored individual differences that may be associated with all the primary outcome measures (i.e., public opinion) in a correlation table. Table \ref{tab:correlation table individual differences} shows these correlations. A moderate correlation was found between trust in psychology at the beginning and end of the study. In addition, a moderate correlation was found between the acceptability ratings of selective reporting and acceptability ratings of publication bias.. The acceptability ratings of publication bias and the acceptability ratings of not sharing data were also moderately correlated. \textcolor{red}{De resultaten aanpassen a.d.h.v. de nieuwe data.}
+
+\begin{lltable}
+
+\begin{longtable}{llllllllllllll}\noalign{\getlongtablewidth\global\LTcapwidth=\longtablewidth}
+\caption{\label{tab:correlation table individual differences}Correlations between 
+                                  possible correlates of public 
+                                  opinion.}\\
+\toprule
+ & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{3} & \multicolumn{1}{c}{4} & \multicolumn{1}{c}{5} & \multicolumn{1}{c}{6} & \multicolumn{1}{c}{7} & \multicolumn{1}{c}{8} & \multicolumn{1}{c}{9} & \multicolumn{1}{c}{10} & \multicolumn{1}{c}{11} & \multicolumn{1}{c}{12} & \multicolumn{1}{c}{13}\\
+\midrule
+\endfirsthead
+\caption*{\normalfont{Table \ref{tab:correlation table individual differences} continued}}\\
+\toprule
+ & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{3} & \multicolumn{1}{c}{4} & \multicolumn{1}{c}{5} & \multicolumn{1}{c}{6} & \multicolumn{1}{c}{7} & \multicolumn{1}{c}{8} & \multicolumn{1}{c}{9} & \multicolumn{1}{c}{10} & \multicolumn{1}{c}{11} & \multicolumn{1}{c}{12} & \multicolumn{1}{c}{13}\\
+\midrule
+\endhead
+1. Trust in psychology (pre) & - &  &  &  &  &  &  &  &  &  &  &  & \\
+2. Trust in psychology (post) & .26 & - &  &  &  &  &  &  &  &  &  &  & \\
+3. Familiarity with psychology & -.14 & -.17 & - &  &  &  &  &  &  &  &  &  & \\
+4. Surprise incentive structure & -.02 & -.11 & 1.00 & - &  &  &  &  &  &  &  &  & \\
+5. Agreement tax cuts & -.54 & .67 & -.43 & -.15 & - &  &  &  &  &  &  &  & \\
+6. Acceptability post (selective reporting) & -.81 & -.60 & -.32 & -.36 & .13 & - &  &  &  &  &  &  & \\
+7. Acceptability post (publication bias) & -.80 & -.76 & -.01 & -.07 & -.04 & .95 & - &  &  &  &  &  & \\
+8. Acceptability post (not sharing data) & .51 & .91 & .15 & .20 & .37 & -.87 & -.92 & - &  &  &  &  & \\
+9. Acceptability pre (selective reporting) & -.43 & -.81 & -.40 & -.44 & -.33 & .87 & .85 & -.97 & - &  &  &  & \\
+10. Acceptability pre (publication bias) & -.11 & .62 & -.93 & -.80 & .68 & .13 & -.19 & .26 & -.05 & - &  &  & \\
+11. Acceptability pre (not sharing data) & .22 & .65 & -.87 & -.83 & .45 & -.10 & -.41 & .37 & -.13 & .94 & - &  & \\
+12. Understanding (selective reporting) & -.69 & -.84 & .37 & .31 & -.22 & .75 & .92 & -.84 & .68 & -.55 & -.74 & - & \\
+13. Understanding (publication bias) & .75 & -.17 & .89 & .57 & -.76 & -.69 & -.47 & .25 & -.34 & -.73 & -.48 & -.14 & -\\
+14. Understanding (not sharing data) & -.06 & .18 & -1.00 & -.99 & .27 & .38 & .08 & -.17 & .41 & .86 & .85 & -.31 & -.65\\
+\bottomrule
+\end{longtable}
+
+\end{lltable}
+
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
+
+\newpage
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+\hypertarget{references}{%
+\subsection{References}\label{references}}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-R-gridExtra}{}}%
+Auguie, B. (2017). \emph{gridExtra: Miscellaneous functions for "grid" graphics}. \url{https://CRAN.R-project.org/package=gridExtra}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-rmdfiltr}{}}%
+Aust, F. (2020). \emph{Rmdfiltr: 'Lua'-filters for r markdown}. \url{https://CRAN.R-project.org/package=rmdfiltr}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-papaja}{}}%
+Aust, F., \& Barth, M. (2020). \emph{{papaja}: {Create} {APA} manuscripts with {R Markdown}}. \url{https://github.com/crsh/papaja}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-tinylabels}{}}%
+Barth, M. (2022). \emph{{tinylabels}: Lightweight variable labels}. \url{https://cran.r-project.org/package=tinylabels}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-pwr}{}}%
+Champely, S. (2020). \emph{Pwr: Basic functions for power analysis}. \url{https://CRAN.R-project.org/package=pwr}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-corx}{}}%
+Conigrave, J. (2020). \emph{Corx: Create and format correlation matrices}. \url{https://CRAN.R-project.org/package=corx}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-remotes}{}}%
+Csárdi, G., Hester, J., Wickham, H., Chang, W., Morgan, M., \& Tenenbaum, D. (2021). \emph{Remotes: R package installation from remote repositories, including 'GitHub'}. \url{https://CRAN.R-project.org/package=remotes}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-janitor}{}}%
+Firke, S. (2021). \emph{Janitor: Simple tools for examining and cleaning dirty data}. \url{https://CRAN.R-project.org/package=janitor}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-apa}{}}%
+Gromer, D. (2020). \emph{Apa: Format outputs of statistical tests according to APA guidelines}. \url{https://CRAN.R-project.org/package=apa}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-Hmisc}{}}%
+Harrell Jr, F. E. (2022). \emph{Hmisc: Harrell miscellaneous}. \url{https://CRAN.R-project.org/package=Hmisc}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-purrr}{}}%
+Henry, L., \& Wickham, H. (2020). \emph{Purrr: Functional programming tools}. \url{https://CRAN.R-project.org/package=purrr}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-vroom}{}}%
+Hester, J., Wickham, H., \& Bryan, J. (2021). \emph{Vroom: Read and write rectangular text data quickly}. \url{https://CRAN.R-project.org/package=vroom}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-labeling}{}}%
+Justin Talbot. (2020). \emph{Labeling: Axis labeling}. \url{https://CRAN.R-project.org/package=labeling}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-rstatix}{}}%
+Kassambara, A. (2020). \emph{Rstatix: Pipe-friendly framework for basic statistical tests}. \url{https://CRAN.R-project.org/package=rstatix}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-TOSTER}{}}%
+Lakens, D. (2017). Equivalence tests: A practical primer for t-tests, correlations, and meta-analyses. \emph{Social Psychological and Personality Science}, \emph{1}, 1--8. \url{https://doi.org/10.1177/1948550617697177}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-tibble}{}}%
+Müller, K., \& Wickham, H. (2021). \emph{Tibble: Simple data frames}. \url{https://CRAN.R-project.org/package=tibble}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-optimx_b}{}}%
+Nash, J. C. (2014). On best practice optimization methods in {R}. \emph{Journal of Statistical Software}, \emph{60}(2), 1--14. \url{https://doi.org/10.18637/jss.v060.i02}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-optimx_a}{}}%
+Nash, J. C., \& Varadhan, R. (2011). Unifying optimization algorithms to aid software system users: {optimx} for {R}. \emph{Journal of Statistical Software}, \emph{43}(9), 1--14. \url{https://doi.org/10.18637/jss.v043.i09}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-checkpoint}{}}%
+Ooi, H., de Vries, A., \& Microsoft. (2022). \emph{Checkpoint: Install packages from snapshots on the checkpoint server for reproducibility}. \url{https://CRAN.R-project.org/package=checkpoint}
+
+\leavevmode\vadjust pre{\hypertarget{ref-pickett2018questionable}{}}%
+Pickett, J. T., \& Roche, S. P. (2018). Questionable, objectionable or criminal? Public opinion on data fraud and selective reporting in science. \emph{Science and Engineering Ethics}, \emph{24}(1), 151--171.
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-base}{}}%
+R Core Team. (2020). \emph{R: A language and environment for statistical computing}. R Foundation for Statistical Computing. \url{https://www.R-project.org/}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-psych}{}}%
+Revelle, W. (2020). \emph{Psych: Procedures for psychological, psychometric, and personality research}. Northwestern University. \url{https://CRAN.R-project.org/package=psych}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-tidystats}{}}%
+Sleegers, W. (2021). \emph{Tidystats: Save output of statistical tests}. \url{https://willemsleegers.github.io/tidystats/}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-RCurl}{}}%
+Temple Lang, D. (2022). \emph{RCurl: General network (HTTP/FTP/...) Client interface for r}. \url{https://CRAN.R-project.org/package=RCurl}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-skimr}{}}%
+Waring, E., Quinn, M., McNamara, A., Arino de la Rubia, E., Zhu, H., \& Ellis, S. (2020). \emph{Skimr: Compact and flexible summaries of data}. \url{https://CRAN.R-project.org/package=skimr}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-ggplot2}{}}%
+Wickham, H. (2016). \emph{ggplot2: Elegant graphics for data analysis}. Springer-Verlag New York. \url{https://ggplot2.tidyverse.org}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-stringr}{}}%
+Wickham, H. (2019). \emph{Stringr: Simple, consistent wrappers for common string operations}. \url{https://CRAN.R-project.org/package=stringr}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-tidyr}{}}%
+Wickham, H. (2020). \emph{Tidyr: Tidy messy data}. \url{https://CRAN.R-project.org/package=tidyr}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-forcats}{}}%
+Wickham, H. (2021). \emph{Forcats: Tools for working with categorical variables (factors)}. \url{https://CRAN.R-project.org/package=forcats}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-tidyverse}{}}%
+Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L. D., François, R., Grolemund, G., Hayes, A., Henry, L., Hester, J., Kuhn, M., Pedersen, T. L., Miller, E., Bache, S. M., Müller, K., Ooms, J., Robinson, D., Seidel, D. P., Spinu, V., \ldots{} Yutani, H. (2019). Welcome to the {tidyverse}. \emph{Journal of Open Source Software}, \emph{4}(43), 1686. \url{https://doi.org/10.21105/joss.01686}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-usethis}{}}%
+Wickham, H., \& Bryan, J. (2021). \emph{Usethis: Automate package and project setup}. \url{https://CRAN.R-project.org/package=usethis}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-dplyr}{}}%
+Wickham, H., François, R., Henry, L., \& Müller, K. (2021). \emph{Dplyr: A grammar of data manipulation}. \url{https://CRAN.R-project.org/package=dplyr}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-readr}{}}%
+Wickham, H., Hester, J., \& Bryan, J. (2022). \emph{Readr: Read rectangular text data}. \url{https://CRAN.R-project.org/package=readr}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-devtools}{}}%
+Wickham, H., Hester, J., \& Chang, W. (2020). \emph{Devtools: Tools to make developing r packages easier}. \url{https://CRAN.R-project.org/package=devtools}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-scales}{}}%
+Wickham, H., \& Seidel, D. (2020). \emph{Scales: Scale functions for visualization}. \url{https://CRAN.R-project.org/package=scales}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-cowplot}{}}%
+Wilke, C. O. (2020). \emph{Cowplot: Streamlined plot theme and plot annotations for 'ggplot2'}. \url{https://CRAN.R-project.org/package=cowplot}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-knitr}{}}%
+Xie, Y. (2015). \emph{Dynamic documents with {R} and knitr} (2nd ed.). Chapman; Hall/CRC. \url{https://yihui.org/knitr/}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-tinytex}{}}%
+Xie, Y. (2019). TinyTeX: A lightweight, cross-platform, and easy-to-maintain LaTeX distribution based on TeX live. \emph{TUGboat}, \emph{1}, 30--32. \url{https://tug.org/TUGboat/Contents/contents40-1.html}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-Formula}{}}%
+Zeileis, A., \& Croissant, Y. (2010). Extended model formulas in {R}: Multiple parts and multiple responses. \emph{Journal of Statistical Software}, \emph{34}(1), 1--13. \url{https://doi.org/10.18637/jss.v034.i01}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-kableExtra}{}}%
+Zhu, H. (2021). \emph{kableExtra: Construct complex table with 'kable' and pipe syntax}. \url{https://CRAN.R-project.org/package=kableExtra}
+
+\end{CSLReferences}
+
+\endgroup
+
+\hypertarget{data-analysis}{%
+\subsection{Data analysis}\label{data-analysis}}
+
+We used R (Version 4.1.1; R Core Team, 2020) and the R-packages \emph{apa} (Aust \& Barth, 2020; Gromer, 2020), \emph{checkpoint} (Version 1.0.2; Ooi et al., 2022), \emph{corx} (Version 1.0.6.1; Conigrave, 2020), \emph{cowplot} (Version 1.1.1; Wilke, 2020), \emph{devtools} (Version 2.4.3; Wickham et al., 2020), \emph{dplyr} (Version 1.0.8; Wickham et al., 2021), \emph{forcats} (Version 0.5.1; Wickham, 2021), \emph{Formula} (Version 1.2.4; Zeileis \& Croissant, 2010), \emph{ggplot2} (Version 3.3.5; Wickham, 2016), \emph{gridExtra} (Version 2.3; Auguie, 2017), \emph{Hmisc} (Version 4.6.0; Harrell Jr, 2022), \emph{janitor} (Version 2.1.0; Firke, 2021), \emph{kableExtra} (Version 1.3.4; Zhu, 2021), \emph{knitr} (Version 1.38; Xie, 2015), \emph{labeling} (Version 0.4.2; Justin Talbot, 2020), \emph{optimx} (Nash, 2014; Nash \& Varadhan, 2011), \emph{papaja} (Version 0.1.0.9999; Aust \& Barth, 2020), \emph{psych} (Version 2.2.3; Revelle, 2020), \emph{purrr} (Version 0.3.4; Henry \& Wickham, 2020), \emph{pwr} (Version 1.3.0; Champely, 2020), \emph{RCurl} (Temple Lang, 2022), \emph{readr} (Version 2.1.2; Wickham et al., 2022), \emph{remotes} (Version 2.4.2; Csárdi et al., 2021), \emph{rmdfiltr} (Version 0.1.3; Aust, 2020), \emph{rstatix} (Version 0.7.0; Kassambara, 2020), \emph{scales} (Version 1.1.1; Wickham \& Seidel, 2020), \emph{skimr} (Version 2.1.3; Waring et al., 2020), \emph{stringr} (Version 1.4.0; Wickham, 2019), \emph{tibble} (Version 3.1.6; Müller \& Wickham, 2021), \emph{tidyr} (Version 1.2.0; Wickham, 2020), \emph{tidystats} (Version 0.5.1; Sleegers, 2021), \emph{tidyverse} (Version 1.3.1; Wickham et al., 2019), \emph{tinylabels} (Version 0.2.3; Barth, 2022), \emph{tinytex} (Version 0.38; Xie, 2019), \emph{TOSTER} (Version 0.4.1; Lakens, 2017), \emph{usethis} (Version 2.1.5; Wickham \& Bryan, 2021), and \emph{vroom} (Version 1.5.7; Hester et al., 2021) for all our analyses.
+
+
+\end{document}
